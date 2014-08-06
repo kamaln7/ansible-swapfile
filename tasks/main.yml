@@ -1,0 +1,14 @@
+---
+- name: Create swapfile
+  command: fallocate -l {{ swapfile_size }} /swapfile creates=/swapfile
+  register: create_swapfile
+
+- name: Set swapfile permissions
+  file: path=/swapfile mode=600
+
+- name: Enable swapfile
+  command: mkswap /swapfile
+  when: create_swapfile.changed
+
+- name: Add swapfile to /etc/fstab
+  lineinfile: dest=/etc/fstab line="/swapfile   none    swap    sw    0   0" state=present
