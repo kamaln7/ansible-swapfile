@@ -14,6 +14,10 @@ None.
     The  length and offset arguments may be followed by binary (2^N) suffixes KiB, MiB, GiB, TiB, PiB and EiB (the "iB" is optional, e.g. "K" has
            the same meaning as "KiB") or decimal (10^N) suffixes KB, MB, GB, PB and EB.
 
+* `swapfile_swappiness`: the swappiness percentage (vm.swappiness) -- the lower it is, the less your system swaps memory pages
+
+* `swapfile_vfs_cache_pressure`: "this percentage value controls the tendency of the kernel to reclaim the memory which is used for caching of directory and inode objects."
+
 ## Usage
 
 ```yaml
@@ -30,7 +34,7 @@ or:
     - { role: kamaln7.swapfile, swapfile_size: 1GB }
 ```
 
-You can also set the `swapfile_size` variable in `group_vars` or `host_vars`.
+You can also set the variables described above in `group_vars` or `host_vars`.
 
 ## License
 
