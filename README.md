@@ -9,10 +9,13 @@ None.
 
 ## Variables
 
+* `swapfile_use_dd` [default: `False`]: if set to False, `fallocate` is used to create the swapfile, otherwise, `dd` is used. You may need to set this to True if your filesystem does not support `fallocate` -- see Issue #3.
+
 * `swapfile_size` [default: `512MB`]: the size of the swapfile to create in the format that `fallocate` expects:
 
-    The  length and offset arguments may be followed by binary (2^N) suffixes KiB, MiB, GiB, TiB, PiB and EiB (the "iB" is optional, e.g. "K" has
-           the same meaning as "KiB") or decimal (10^N) suffixes KB, MB, GB, PB and EB.
+    The  length and offset arguments may be followed by binary (2^N) suffixes KiB, MiB, GiB, TiB, PiB and EiB (the "iB" is optional, e.g. "K" has the same meaning as "KiB") or decimal (10^N) suffixes KB, MB, GB, PB and EB.
+
+    If `swapfile_use_dd` is set to True, `swapfile_size` must be set to the amount of megabytes to write, e.g. `512`.
 
 ### Optional
 
