@@ -2,28 +2,28 @@
 - name: Write swapfile
   command: |
     {% if swapfile_use_dd %}
-    dd if=/dev/zero of=/swapfile bs=1M count={{ swapfile_size }} creates=/swapfile
+    dd if=/dev/zero of={{ swapfile_location }} bs=1M count={{ swapfile_size }} creates={{ swapfile_location }}
     {% else %}
-    fallocate -l {{ swapfile_size }} /swapfile creates=/swapfile
+    fallocate -l {{ swapfile_size }} {{ swapfile_location }} creates={{ swapfile_location }}
     {% endif %}
   register: write_swapfile
   when: swapfile_size != false
 
 - name: Set swapfile permissions
-  file: path=/swapfile mode=600
+  file: path={{ swapfile_location }} mode=600
   when: swapfile_size != false
 
 - name: Create swapfile
-  command: mkswap /swapfile
+  command: mkswap {{ swapfile_location }}
   register: create_swapfile
   when: swapfile_size != false and write_swapfile.changed
 
 - name: Enable swapfile
-  command: swapon /swapfile
+  command: swapon {{ swapfile_location }}
   when: swapfile_size != false and create_swapfile.changed
 
 - name: Add swapfile to /etc/fstab
-  lineinfile: dest=/etc/fstab line="/swapfile   none    swap    sw    0   0" state=present
+  lineinfile: dest=/etc/fstab line="{{ swapfile_location }}   none    swap    sw    0   0" state=present
   when: swapfile_size != false
 
 - name: Configure vm.swappiness

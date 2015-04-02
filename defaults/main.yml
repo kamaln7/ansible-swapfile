@@ -1,4 +1,5 @@
 ---
+swapfile_location: /swapfile
 swapfile_size: 512MB
 swapfile_swappiness: False
 swapfile_vfs_cache_pressure: False
