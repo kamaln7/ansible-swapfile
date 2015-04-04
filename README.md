@@ -17,6 +17,8 @@ None.
 
     If `swapfile_use_dd` is set to True, `swapfile_size` must be set to the amount of megabytes to write, e.g. `512`.
 
+* `swapfile_location` [default: `/swapfile`]: the location of where the swapfile will be created
+
 ### Optional
 
 The following variables are set to `False` by default and will not have any effect on your hosts. Setting them to any value other than `False` will update your hosts' sysctl.conf file.
@@ -38,7 +40,7 @@ or:
 ```yaml
 - hosts: all
   roles:
-    - { role: kamaln7.swapfile, swapfile_size: 1GB, swapfile_swappiness: 10 }
+    - { role: kamaln7.swapfile, swapfile_size: 1GB, swapfile_swappiness: 10, swapfile_location: /mnt/swapfile }
 ```
 
 You can also set the variables described above in `group_vars` or `host_vars` (see `defaults/main.yml`).
