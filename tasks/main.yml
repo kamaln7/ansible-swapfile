@@ -15,11 +15,15 @@
 
 - name: Create swapfile
   command: mkswap {{ swapfile_location }}
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/usr/local/sbin:/usr/sbin:/sbin"
   register: create_swapfile
   when: swapfile_size != false and write_swapfile.changed
 
 - name: Enable swapfile
   command: swapon {{ swapfile_location }}
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/usr/local/sbin:/usr/sbin:/sbin"
   when: swapfile_size != false and create_swapfile.changed
 
 - name: Add swapfile to /etc/fstab
