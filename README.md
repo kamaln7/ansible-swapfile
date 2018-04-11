@@ -1,3 +1,7 @@
+### This repo is no longer maintained. You can use https://github.com/Oefenweb/ansible-swapfile or any of the other forks—people have done great work there 🙂
+
+---
+
 ansible-swapfile
 ================
 
